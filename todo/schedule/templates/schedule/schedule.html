@@ -1,0 +1,81 @@
+{% extends 'schedule/main.html' %}
+{% block title %}DASHBOARD{% endblock %}
+{% block body %}
+    <br><br>
+    <center>
+    ALL YOUR UPCOMING SCHEDULES
+    <br><br>
+    {% if upcoming_schedule_list %}
+        <table id="customers">
+            <thead>
+                <th></th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th colspan="2" style="text-align: center">Actions</th>
+            </thead>
+            <tbody>
+                {% for schedule in upcoming_schedule_list %}
+                    <tr>
+                        <td><input type="checkbox" disabled {% if schedule.done %}checked{% endif %}></td>
+                        <td>{{ schedule.title }}</td>
+                        <td>{{ schedule.date }}</td>
+                        <td>{{ schedule.start_time }}</td>
+                        <td>{{ schedule.end_time }}</td>
+                        <td>
+                            {% if schedule.done %}
+                                <a href="{% url 'schedule:mark' schedule.id 0 %}">MARK INCOMPLETE</a>
+                            {% else %}
+                                <a href="{% url 'schedule:mark' schedule.id 1 %}">MARK COMPLETE</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'schedule:updateSchedule' schedule.id %}">UPDATE</a>&nbsp;&nbsp;&nbsp;
+                            <a href="{% url 'schedule:deleteSchedule' schedule.id %}">DELETE</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    
+    <br><br>
+    ALL YOUR PREVIOUS SCHEDULES
+    <br><br>
+    {% if previous_schedule_list %}
+        <table id="customers">
+            <thead >
+                <th></th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th colspan="2" style="text-align: center">Actions</th>
+            </thead>
+            <tbody>
+                {% for schedule in previous_schedule_list %}
+                    <tr>
+                        <td><input type="checkbox" disabled {% if schedule.done %}checked{% endif %}></td>
+                        <td>{{ schedule.title }}</td>
+                        <td>{{ schedule.date }}</td>
+                        <td>{{ schedule.start_time }}</td>
+                        <td>{{ schedule.end_time }}</td>
+                        <td>
+                            {% if schedule.done %}
+                                <a href="{% url 'schedule:mark' schedule.id 0 %}">MARK INCOMPLETE</a>
+                            {% else %}
+                                <a href="{% url 'schedule:mark' schedule.id 1 %}">MARK COMPLETE</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'schedule:updateSchedule' schedule.id %}">UPDATE</a>&nbsp;&nbsp;&nbsp;
+                            <a href="{% url 'schedule:deleteSchedule' schedule.id %}">DELETE</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </center>
+    {% endif %}
+{% endblock %}

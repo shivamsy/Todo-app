@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>
+            LOGIN
+        </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+       
+    </head>
+    <body>
+        LOGIN FORM
+
+        <br><br>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <form action="{% url 'schedule:login' %}" method="POST">
+            {% csrf_token %}
+            <label for="title">Username : </label>
+            <input type="text" name="user_name" placeholder="Username" required class="form-control"><br>
+
+            <label for="title">Password : </label>
+            <input type="password" name="user_password" placeholder="Password" required class="form-control"><br>
+            <button type="submit">LOGIN</button>
+        </form>
+
+        <br><br>
+        <a href="{% url 'schedule:signup' %}">SIGNUP</a>
+    </body>
+</html>
